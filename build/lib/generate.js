@@ -1,17 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const metalsmith_1 = require("metalsmith");
+const Metalsmith = require("metalsmith");
 const ask_1 = require("./ask");
+const template_1 = require("./template");
+const path = require("path");
+const log_1 = require("./log");
 /**
  * compile the downloaded template and output to the dest dir
  */
-exports.default = (src, dest) => {
-    const metalsmith = metalsmith_1.default(src);
+exports.default = (src, dest, typeName, projectName) => {
+    const metalsmith = Metalsmith(src);
     metalsmith
-        .use(askQuestions)
-        .use();
+        .use(askQuestions(typeName))
+        .use(template_1.default())
+        .source('template')
+        .destination(path.join(dest, projectName))
+        .build((err, files) => {
+        if (err) {
+            // log.error('error: build error, ' + err.toString())
+            throw new Error(err);
+        }
+        log_1.default.info('complete');
+    });
 };
-function askQuestions() {
+function askQuestions(name) {
     return ask_1.default([
         {
             type: 'input',
@@ -30,7 +42,5 @@ function askQuestions() {
             message: 'input author:'
         }
     ]);
-}
-function compileTemplate() {
 }
 //# sourceMappingURL=generate.js.map

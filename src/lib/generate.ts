@@ -1,20 +1,33 @@
-import Metalsmith from 'metalsmith'
+import Metalsmith = require('metalsmith')
 import ask from './ask'
+import template from './template'
+import path = require('path')
+import log from './log'
 
 
 /**
  * compile the downloaded template and output to the dest dir
  */
-export default (src: string, dest: string): void => {
+export default (src: string, dest: string, typeName: string, projectName: string): void => {
   const metalsmith = Metalsmith(src)
 
   metalsmith
-    .use(askQuestions)
-    .use()
+    .use(askQuestions(typeName))
+    .use(template())
+    .source('template')
+    .destination(path.join(dest, projectName))
+    .build((err, files) => {
+      if(err) {
+        // log.error('error: build error, ' + err.toString())
+        throw new Error(err)
+      }
+
+      log.info('complete')
+    })
 }
 
 
-function askQuestions() {
+function askQuestions(name: string) {
   return ask([
     {
       type: 'input',
@@ -33,9 +46,4 @@ function askQuestions() {
       message: 'input author:'
     }
   ])
-}
-
-
-function compileTemplate() {
-
 }

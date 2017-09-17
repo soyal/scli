@@ -1,26 +1,37 @@
 import consolidate = require('consolidate')
 import async = require('async')
+import log from './log'
 
 const render = consolidate.handlebars.render
 
 
-function template(src: String, dest: String): Function {
+export default function template(): Function {
   return (files: any, metalsmith: any, done: Function) => {
     const metadata = metalsmith.metadata()
-    const fileKeys = Object.keys(files)
 
-    const run = (fileKey: string, next: Function) => {
-      const str = files[fileKey].contents.toString()
-      render(str, metadata, (err: Object, res: string) => {
+    compileTemplates(files, metadata, done)
+  }
+}
+
+async function compileTemplates(files: Object, metadata: Object, cb: Function) {
+  const fileKeys = Object.keys(files)
+
+  for(let fileKey of fileKeys) {
+    const originStr = files[fileKey].contents.toString()
+    await new Promise((resolve) => {
+      render(originStr, metadata, (err, res) => {
         if(err) {
-          next()
+          throw new Error(err.toString())
         }
 
         files[fileKey].contents = new Buffer(res)
-        next()
+        resolve()
       })
-    }
+    }) 
 
-    async.each(fileKeys, run, done)
   }
+
+  log.info('compile complete!')
+
+  cb()
 }

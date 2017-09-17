@@ -2,7 +2,6 @@
 //scli init 命令
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander = require("commander");
-const inquirer = require("inquirer");
 const log_1 = require("./lib/log");
 commander
     .usage('<name> [project-name]')
@@ -21,20 +20,4 @@ if (SUPPORT_NAME.indexOf(name) === -1) {
     log_1.default.error(`can only build ${SUPPORT_NAME.join(',')} template, but you input ${name}`);
 }
 // inquire
-inquirer.prompt([
-    {
-        type: 'input',
-        name: 'componentName',
-        message: `input ${name} name:`
-    },
-    {
-        type: 'input',
-        name: 'version',
-        message: 'input version:',
-        default: '1.0.0'
-    }
-])
-    .then((answer) => {
-    log_1.default.info(answer.projectName);
-});
 //# sourceMappingURL=init.js.map

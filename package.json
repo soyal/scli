@@ -15,10 +15,15 @@
     "@types/node": "^8.0.28"
   },
   "dependencies": {
+    "@types/async": "^2.0.42",
     "@types/chalk": "^0.4.31",
+    "@types/consolidate": "0.0.33",
     "@types/inquirer": "0.0.35",
+    "async": "^2.5.0",
     "chalk": "^2.1.0",
     "commander": "^2.11.0",
-    "inquirer": "^3.2.3"
+    "consolidate": "^0.14.5",
+    "inquirer": "^3.2.3",
+    "metalsmith": "^2.3.0"
   }
 }

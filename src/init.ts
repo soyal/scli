@@ -28,24 +28,3 @@ if(SUPPORT_NAME.indexOf(name) === -1) {
 }
 
 // inquire
-inquirer.prompt([
-  {
-    type: 'input',
-    name: 'componentName',
-    message: `input ${name} name:`
-  },
-  {
-    type: 'input',
-    name: 'version',
-    message: 'input version:',
-    default: '1.0.0'
-  },
-  {
-    type: 'input',
-    name: 'author',
-    message: 'input author:'
-  }
-])
-  .then((answer) => {
-    // log.info(answer.projectName)
-  })

@@ -3,7 +3,7 @@
  */
 import consolidate = require('consolidate')
 import async = require('async')
-import log from './log'
+import ora = require('ora')
 
 const render = consolidate.handlebars.render
 
@@ -18,6 +18,7 @@ export default function template(): Function {
 
 async function compileTemplates(files: Object, metadata: Object, cb: Function) {
   const fileKeys = Object.keys(files)
+  const spinner = ora('start to compile template...').start()
 
   for(let fileKey of fileKeys) {
     const originStr = files[fileKey].contents.toString()
@@ -34,7 +35,6 @@ async function compileTemplates(files: Object, metadata: Object, cb: Function) {
 
   }
 
-  log.info('compile complete!')
-
+  spinner.succeed('template compile success')
   cb()
 }

@@ -28,7 +28,7 @@ const projectName = args[1] || 'component-template'  // target folder name, defa
 // verify name
 // it should only be component or project
 if(SUPPORT_NAME.indexOf(name) === -1) {
-  log.error(`can only build ${SUPPORT_NAME.join(',')} template, but you input ${name}`)
+  log.error(`> can only build ${SUPPORT_NAME.join(',')} template, but you input ${name}`)
 }
 
 // download and generate template
@@ -36,9 +36,15 @@ const cwd = process.cwd()
 const home = os.homedir()
 const templateRepo = `soyal/scli-${name}-template`
 const scliTemplatePlace = path.join(home, `.scli/${name}`)
+
 download(templateRepo, scliTemplatePlace)
   .then(() => {
-    log.info(`template has downloaded and place at ${scliTemplatePlace}`)
+    const targetPlace = path.join(cwd, projectName)
+
+    return generate(scliTemplatePlace, targetPlace, name)
+  })
+  .then(() => {
+    log.info(`> ${name} template build complete!`)
   })
   .catch((err) => {
     throw new Error(err)

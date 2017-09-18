@@ -3,6 +3,8 @@
  */
 import ora = require('ora')
 import downloadGitRepo = require('download-git-repo')
+import fs = require('fs')
+import log from './log'
 
 /**
  * download the template from github project, and place it at dest
@@ -14,12 +16,24 @@ export default function download(repo: string, dest: string): Promise<Function> 
   const spinner = ora('downloading template').start()
 
   return new Promise((resolve, reject) => {
-    downloadGitRepo(repo, dest, (err) => {
-      spinner.succeed('template downloaded')
-      
-      if (err) reject(err)
-
+    // has the template downloaded
+    try {
+      fs.statSync(dest)
+      // template exist
+      spinner.stop()
+      log.info('> load template from cache')
       resolve()
-    })
+      return 
+    }catch(e) {
+      // error throwed, means the template has never downloaded, do download action
+      downloadGitRepo(repo, dest, (err) => {
+        spinner.succeed('template downloaded')
+        
+        if (err) reject(err)
+        log.info(`> template has downloaded and place at ${dest}`)
+        resolve()
+      })
+    }
+
   })
 }

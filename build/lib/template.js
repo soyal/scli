@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * compile the template
  */
 const consolidate = require("consolidate");
-const log_1 = require("./log");
+const ora = require("ora");
 const render = consolidate.handlebars.render;
 function template() {
     return (files, metalsmith, done) => {
@@ -24,6 +24,7 @@ exports.default = template;
 function compileTemplates(files, metadata, cb) {
     return __awaiter(this, void 0, void 0, function* () {
         const fileKeys = Object.keys(files);
+        const spinner = ora('start to compile template...').start();
         for (let fileKey of fileKeys) {
             const originStr = files[fileKey].contents.toString();
             yield new Promise((resolve) => {
@@ -36,7 +37,7 @@ function compileTemplates(files, metadata, cb) {
                 });
             });
         }
-        log_1.default.info('compile complete!');
+        spinner.succeed('template compile success');
         cb();
     });
 }

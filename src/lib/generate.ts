@@ -11,22 +11,24 @@ import log from './log'
 /**
  * compile the downloaded template and output to the dest dir
  */
-export default (src: string, dest: string, typeName: string, projectName: string): void => {
-  const metalsmith = Metalsmith(src)
+export default (src: string, dest: string, typeName: string): Promise<Function> => {
+  return new Promise((resolve, reject) => {
+    const metalsmith = Metalsmith(src)
 
-  metalsmith
-    .use(askQuestions(typeName))
-    .use(template())
-    .source('template')
-    .destination(path.join(dest, projectName))
-    .build((err, files) => {
-      if(err) {
-        // log.error('error: build error, ' + err.toString())
-        throw new Error(err)
-      }
+    metalsmith
+      .use(askQuestions(typeName))
+      .use(template())
+      .source('.')
+      .destination(dest)
+      .build((err, files) => {
+        if(err) {
+          reject(err)
+          return
+        }
 
-      log.info('complete')
-    })
+        resolve()
+      })
+  })
 }
 
 

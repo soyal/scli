@@ -1,12 +1,13 @@
 {
-  "name": "scli",
+  "name": "@fs/scli",
   "version": "1.0.0",
   "description": "a cli for build template",
   "bin": "./bin/scli",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node bin/scli",
-    "command": "node bin/scli"
+    "command": "node bin/scli",
+    "prepublish": "tsc"
   },
   "author": "",
   "license": "ISC",

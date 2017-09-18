@@ -2,7 +2,7 @@
 
 ## Quick Start
 ```
-npm install -g @fs/scli
+npm install -g @fs/scli --registry=http://npm.fishsaying.com
 scli init component my-component
 cd my-component
 npm install

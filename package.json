@@ -1,6 +1,6 @@
 {
   "name": "@fs/scli",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "a cli for build template",
   "bin": "./bin/scli",
   "scripts": {

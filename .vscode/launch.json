@@ -5,10 +5,15 @@
       {
         "type": "node",
         "request": "launch",
-        "name": "Launch Program",
-        "program": "${workspaceRoot}\\bin\\scli",
+        "name": "run init command",
+        "program": "${workspaceRoot}\\src\\init.ts",
+        "args": [
+          "component"
+        ],
+        "sourceMaps": true,
+        "console": "externalTerminal",
         "outFiles": [
-          "${workspaceRoot}/out/**/*.js"
+          "${workspaceRoot}/build/**/*.js"
         ]
       }
     ]

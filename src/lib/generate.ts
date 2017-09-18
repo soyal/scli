@@ -1,3 +1,6 @@
+/**
+ * generate template
+ */
 import Metalsmith = require('metalsmith')
 import ask from './ask'
 import template from './template'

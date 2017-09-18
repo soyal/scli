@@ -1,3 +1,6 @@
+/**
+ * compile the template
+ */
 import consolidate = require('consolidate')
 import async = require('async')
 import log from './log'

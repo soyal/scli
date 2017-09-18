@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * generate template
+ */
 const Metalsmith = require("metalsmith");
 const ask_1 = require("./ask");
 const template_1 = require("./template");

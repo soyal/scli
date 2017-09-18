@@ -8,6 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * compile the template
+ */
 const consolidate = require("consolidate");
 const log_1 = require("./log");
 const render = consolidate.handlebars.render;

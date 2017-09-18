@@ -41,6 +41,12 @@ function askQuestions(name) {
         },
         {
             type: 'input',
+            name: 'descrition',
+            message: 'input description:',
+            default: ' '
+        },
+        {
+            type: 'input',
             name: 'author',
             message: 'input author:'
         }

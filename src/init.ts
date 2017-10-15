@@ -7,6 +7,7 @@ import download from './lib/download'
 import generate from './lib/generate'
 import path = require('path')
 import os = require('os')
+import config from './config'
 
 commander
   .usage('<name> [project-name]')
@@ -21,9 +22,9 @@ if (args.length === 0) {
 }
 
 
-const SUPPORT_NAME = ['component']
+const SUPPORT_NAME = config.supportProjects
 const name = args[0]  // template type, component or other
-const projectName = args[1] || 'component-template'  // target folder name, default: component-template
+const projectName = args[1] || 'demo-template'  // target folder name, default: demo-template
 
 // verify name
 // it should only be component or project

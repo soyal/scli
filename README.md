@@ -1,9 +1,9 @@
-# 用于快速生成组件和项目的脚手架工具
+# Scli
+脚手架工具  
+支持类型：
+  * component
+  * pc project
 
 ## Quick Start
-```
-npm install -g @fs/scli --registry=http://npm.fishsaying.com
-scli init component my-component
-cd my-component
-npm install
-```
+* component: `scli init component <COMPONENT_NAME>`
+* pc project: `scli init project-pc <PROJECT_NAME>`

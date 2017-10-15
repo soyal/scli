@@ -7,6 +7,7 @@ const download_1 = require("./lib/download");
 const generate_1 = require("./lib/generate");
 const path = require("path");
 const os = require("os");
+const config_1 = require("./config");
 commander
     .usage('<name> [project-name]')
     .parse(process.argv);
@@ -15,9 +16,9 @@ const args = commander.args;
 if (args.length === 0) {
     commander.help();
 }
-const SUPPORT_NAME = ['component'];
+const SUPPORT_NAME = config_1.default.supportProjects;
 const name = args[0]; // template type, component or other
-const projectName = args[1] || 'component-template'; // target folder name, default: component-template
+const projectName = args[1] || 'demo-template'; // target folder name, default: demo-template
 // verify name
 // it should only be component or project
 if (SUPPORT_NAME.indexOf(name) === -1) {

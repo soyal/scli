@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const consolidate = require("consolidate");
 const ora = require("ora");
+const config_1 = require("../config");
 const render = consolidate.handlebars.render;
 function template() {
     return (files, metalsmith, done) => {
@@ -23,22 +24,38 @@ function template() {
 exports.default = template;
 function compileTemplates(files, metadata, cb) {
     return __awaiter(this, void 0, void 0, function* () {
-        const fileKeys = Object.keys(files);
-        const spinner = ora('start to compile template...').start();
-        for (let fileKey of fileKeys) {
-            const originStr = files[fileKey].contents.toString();
-            yield new Promise((resolve) => {
-                render(originStr, metadata, (err, res) => {
-                    if (err) {
-                        throw new Error(err.toString());
-                    }
-                    files[fileKey].contents = new Buffer(res);
-                    resolve();
+        try {
+            const fileKeys = Object.keys(files);
+            const spinner = ora('start to compile template...').start();
+            for (let fileKey of fileKeys) {
+                if (!shouldCompile(fileKey))
+                    continue;
+                const originStr = files[fileKey].contents.toString();
+                yield new Promise((resolve) => {
+                    render(originStr, metadata, (err, res) => {
+                        if (err) {
+                            throw new Error(err.toString());
+                        }
+                        files[fileKey].contents = new Buffer(res);
+                        resolve();
+                    });
                 });
-            });
+            }
+            spinner.succeed('template compile success');
+            cb();
         }
-        spinner.succeed('template compile success');
-        cb();
+        catch (e) {
+            throw new Error(e);
+        }
     });
+}
+/**
+ * judge should the file be compiled
+ * @param fileName 完整的文件名
+ */
+function shouldCompile(fileName) {
+    const includeFileSuffix = config_1.default.compiledSuffixes;
+    const pattern = new RegExp(`\\.(${includeFileSuffix.join('|')})$`);
+    return pattern.test(fileName);
 }
 //# sourceMappingURL=template.js.map

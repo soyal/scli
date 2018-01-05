@@ -1,4 +1,4 @@
-import chalk = require('chalk')
+import chalk from 'chalk'
 
 const log = console.log
 

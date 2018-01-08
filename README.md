@@ -6,7 +6,7 @@
 
 ## Quick Start
 ```shell
-npm install -g scli
+npm install -g @fs/scli --registry=http://npm.fishsaying.com
 ```
 
 * component: `scli init component <COMPONENT_NAME>`
